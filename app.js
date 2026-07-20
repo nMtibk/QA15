@@ -109,20 +109,20 @@ lockForm.addEventListener('submit', async (e) => {
   unlockBtn.querySelector('.btn-label').textContent = '確認中…';
 
   try {
-    const questions = await decryptQuestions(password);
-    ALL_QUESTIONS = questions;
-    buildChapterIndex();
-    renderChapterList();
-    showScreen('chapters');
-    passwordInput.value = '';
-  } catch (err) {
-    console.error(err);
-    lockError.hidden = false;
-    passwordInput.select();
-  } finally {
-    unlockBtn.disabled = false;
-    unlockBtn.querySelector('.btn-label').textContent = '開く';
-  }
+  const questions = await decryptQuestions(password);
+  console.log('復号結果:', questions);
+  console.log('1件目:', questions?.[0]);
+
+  ALL_QUESTIONS = questions;
+  buildChapterIndex();
+  renderChapterList();
+  showScreen('chapters');
+  passwordInput.value = '';
+} catch (err) {
+  console.error('ここで失敗:', err);
+  lockError.hidden = false;
+  passwordInput.select();
+}
 });
 
 // =========================================================
