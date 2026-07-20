@@ -90,6 +90,12 @@ async function decryptQuestions(password) {
   return JSON.parse(json);
 }
 
+const questions = await decryptQuestions(password);
+console.log(questions);
+console.log(Array.isArray(questions));
+console.log(questions[0]);
+
+
 // =========================================================
 // ロック画面
 // =========================================================
