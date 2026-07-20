@@ -1,0 +1,417 @@
+/* ===========================================================
+   ITパスポート一問一答 — スタイル
+   コンセプト: 「試験問題カード／めくって確かめる単語帳」
+   配色: インク紺の背景 + 琥珀（amber）のアクセント
+   =========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&family=JetBrains+Mono:wght@500;700&display=swap');
+
+:root {
+  --ink-950: #10131a;
+  --ink-900: #161a23;
+  --ink-800: #1d2230;
+  --ink-700: #262c3d;
+  --ink-600: #343c52;
+  --paper: #f3ede2;
+  --paper-dim: #d8d0bf;
+  --amber: #e2a24c;
+  --amber-bright: #f0b968;
+  --amber-dim: #8a6a3a;
+  --text-hi: #f2f0ea;
+  --text-mid: #b9bdcb;
+  --text-low: #7b8093;
+  --danger: #e2694c;
+  --ok: #6db892;
+
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-sm: 9px;
+
+  --font-display: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+  --font-body: 'Zen Kaku Gothic New', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: radial-gradient(120% 140% at 15% -10%, #1b2130 0%, var(--ink-950) 55%);
+  color: var(--text-hi);
+  font-family: var(--font-body);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+button {
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- 汎用ボタン ---------- */
+
+.btn {
+  appearance: none;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s ease, opacity 0.12s ease, background-color 0.12s ease;
+  touch-action: manipulation;
+}
+.btn:active { transform: scale(0.97); }
+
+.btn-primary {
+  background: linear-gradient(180deg, var(--amber-bright), var(--amber));
+  color: #241705;
+  box-shadow: 0 8px 24px -8px rgba(226, 162, 76, 0.55);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+.btn-ghost {
+  background: var(--ink-800);
+  color: var(--text-hi);
+  border: 1px solid var(--ink-600);
+}
+.btn-ghost:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.btn-ghost:not(:disabled):hover { border-color: var(--amber-dim); }
+
+.btn-full { width: 100%; }
+
+.icon-btn {
+  appearance: none;
+  border: none;
+  background: var(--ink-800);
+  color: var(--text-hi);
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  font-size: 18px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+.icon-btn:active { transform: scale(0.94); }
+
+/* =====================================================
+   ロック画面
+   ===================================================== */
+
+#lock-screen {
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgba(226, 162, 76, 0.10), transparent 60%),
+    radial-gradient(120% 140% at 15% -10%, #1b2130 0%, var(--ink-950) 55%);
+}
+
+.lock-card {
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+}
+
+.lock-mark {
+  font-size: 34px;
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 22px;
+  display: grid;
+  place-items: center;
+  background: var(--ink-800);
+  border: 1px solid var(--ink-600);
+  border-radius: 20px;
+}
+
+.lock-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 26px;
+  line-height: 1.35;
+  margin: 0 0 8px;
+  letter-spacing: 0.02em;
+}
+
+.lock-sub {
+  color: var(--text-mid);
+  font-size: 14px;
+  margin: 0 0 28px;
+}
+
+.password-input {
+  width: 100%;
+  background: var(--ink-800);
+  border: 1px solid var(--ink-600);
+  border-radius: var(--radius-md);
+  color: var(--text-hi);
+  font-size: 17px;
+  padding: 15px 16px;
+  margin-bottom: 14px;
+  text-align: center;
+  letter-spacing: 0.08em;
+}
+.password-input:focus {
+  outline: none;
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(226, 162, 76, 0.18);
+}
+
+.lock-error {
+  color: var(--danger);
+  font-size: 13px;
+  margin-top: 16px;
+  font-weight: 700;
+}
+
+/* =====================================================
+   章選択画面
+   ===================================================== */
+
+.app-header {
+  padding: 28px 20px 18px;
+}
+
+.app-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 24px;
+  margin: 0 0 4px;
+}
+
+.app-subtitle {
+  color: var(--text-low);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  margin: 0;
+  letter-spacing: 0.03em;
+}
+
+.chapter-list {
+  padding: 4px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.chapter-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--ink-800);
+  border: 1px solid var(--ink-700);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  cursor: pointer;
+  text-align: left;
+  appearance: none;
+  color: var(--text-hi);
+  width: 100%;
+  transition: border-color 0.12s ease, transform 0.12s ease;
+}
+.chapter-row:active { transform: scale(0.985); }
+.chapter-row:hover { border-color: var(--amber-dim); }
+
+.chapter-num {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--ink-950);
+  background: var(--amber);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.chapter-info { flex: 1; min-width: 0; }
+
+.chapter-name {
+  font-weight: 700;
+  font-size: 15px;
+  margin: 0 0 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chapter-count {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-low);
+  margin: 0;
+}
+
+.chapter-arrow {
+  color: var(--text-low);
+  font-size: 18px;
+  flex: 0 0 auto;
+}
+
+/* =====================================================
+   出題画面
+   ===================================================== */
+
+.quiz-header {
+  padding: 18px 16px 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.quiz-header-mid {
+  flex: 1;
+  min-width: 0;
+}
+
+.quiz-chapter-name {
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quiz-progress {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-low);
+  margin: 2px 0 0;
+}
+
+.progress-track {
+  width: 100%;
+  height: 4px;
+  background: var(--ink-700);
+  border-radius: 999px;
+  overflow: hidden;
+  flex-basis: 100%;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--amber-dim), var(--amber-bright));
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+
+.quiz-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 8px 16px 24px;
+}
+
+.card {
+  width: 100%;
+  background: var(--paper);
+  color: #241f14;
+  border-radius: var(--radius-lg);
+  padding: 30px 24px 34px;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 24px 48px -20px rgba(0,0,0,0.55);
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform 0.12s ease;
+}
+.card:active { transform: scale(0.99); }
+
+/* 「めくり穴」モチーフ: カード上端に単語帳のミシン目を表現 */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 1px;
+  background-image: radial-gradient(circle, var(--paper-dim) 1.5px, transparent 1.6px);
+  background-size: 14px 1px;
+  background-repeat: repeat-x;
+  transform: translateY(14px);
+  opacity: 0.9;
+}
+
+.card-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--amber-dim);
+  margin: 0 0 14px;
+}
+.card-eyebrow.is-answer { color: #2f7a52; }
+
+.card-text {
+  font-size: 19px;
+  line-height: 1.85;
+  font-weight: 500;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.blank {
+  display: inline-block;
+  color: transparent;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--amber-dim),
+    var(--amber-dim) 4px,
+    var(--amber) 4px,
+    var(--amber) 8px
+  );
+  border-radius: 4px;
+  padding: 0 2px;
+  cursor: pointer;
+}
+
+.answer-fill {
+  color: #1f5c3c;
+  font-weight: 700;
+  background: rgba(109, 184, 146, 0.18);
+  border-radius: 4px;
+  padding: 0 3px;
+}
+
+.quiz-nav {
+  display: flex;
+  gap: 10px;
+  padding: 0 16px calc(20px + env(safe-area-inset-bottom));
+}
+.quiz-nav .btn { flex: 1; }
+
+@media (min-width: 640px) {
+  .chapter-list { max-width: 560px; margin: 0 auto; width: 100%; }
+  .quiz-header, .quiz-body, .quiz-nav { max-width: 560px; margin: 0 auto; width: 100%; }
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14171f">
+<title>ITパスポート 一問一答</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ロック画面 -->
+<section id="lock-screen" class="screen" aria-live="polite">
+  <div class="lock-card">
+    <div class="lock-mark">🔒</div>
+    <h1 class="lock-title">ITパスポート<br>一問一答</h1>
+    <p class="lock-sub">パスワードを入力してください</p>
+    <form id="lock-form" autocomplete="off">
+      <input
+        type="password"
+        id="password-input"
+        class="password-input"
+        placeholder="パスワード"
+        autocomplete="current-password"
+        autocapitalize="off"
+        autocorrect="off"
+        spellcheck="false"
+        required
+      >
+      <button type="submit" class="btn btn-primary btn-full" id="unlock-btn">
+        <span class="btn-label">開く</span>
+      </button>
+    </form>
+    <p id="lock-error" class="lock-error" hidden>パスワードが正しくありません</p>
+  </div>
+</section>
+
+<!-- 章選択画面 -->
+<section id="chapter-screen" class="screen" hidden>
+  <header class="app-header">
+    <h1 class="app-title">章を選択</h1>
+    <p class="app-subtitle" id="total-count"></p>
+  </header>
+  <div id="chapter-list" class="chapter-list"></div>
+</section>
+
+<!-- 出題画面 -->
+<section id="quiz-screen" class="screen" hidden>
+  <header class="quiz-header">
+    <button class="icon-btn" id="back-to-chapters" aria-label="章選択に戻る">←</button>
+    <div class="quiz-header-mid">
+      <p class="quiz-chapter-name" id="quiz-chapter-name"></p>
+      <p class="quiz-progress" id="quiz-progress"></p>
+    </div>
+    <div class="progress-track" aria-hidden="true">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </header>
+
+  <main class="quiz-body">
+    <div class="card" id="quiz-card">
+      <p class="card-eyebrow" id="quiz-state-label">タップして解答を表示</p>
+      <p class="card-text" id="quiz-text"></p>
+    </div>
+  </main>
+
+  <nav class="quiz-nav">
+    <button class="btn btn-ghost" id="btn-prev">前へ</button>
+    <button class="btn btn-ghost" id="btn-redisplay">問題再表示</button>
+    <button class="btn btn-ghost" id="btn-next">次へ</button>
+  </nav>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
