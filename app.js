@@ -7,8 +7,6 @@
    - 検索・学習履歴の保存は行わない（仕様通り）
    ========================================================= */
 
-console.log('app.js loaded');
-
 const ENC_DATA_URL = 'questions.json';
 
 // ---- DOM参照 ----
@@ -92,12 +90,6 @@ async function decryptQuestions(password) {
   return JSON.parse(json);
 }
 
-const questions = await decryptQuestions(password);
-console.log(questions);
-console.log(Array.isArray(questions));
-console.log(questions[0]);
-
-
 // =========================================================
 // ロック画面
 // =========================================================
@@ -111,20 +103,20 @@ lockForm.addEventListener('submit', async (e) => {
   unlockBtn.querySelector('.btn-label').textContent = '確認中…';
 
   try {
-  const questions = await decryptQuestions(password);
-  console.log('復号結果:', questions);
-  console.log('1件目:', questions?.[0]);
-
-  ALL_QUESTIONS = questions;
-  buildChapterIndex();
-  renderChapterList();
-  showScreen('chapters');
-  passwordInput.value = '';
-} catch (err) {
-  console.error('ここで失敗:', err);
-  lockError.hidden = false;
-  passwordInput.select();
-}
+    const questions = await decryptQuestions(password);
+    ALL_QUESTIONS = questions;
+    buildChapterIndex();
+    renderChapterList();
+    showScreen('chapters');
+    passwordInput.value = '';
+  } catch (err) {
+    console.error(err);
+    lockError.hidden = false;
+    passwordInput.select();
+  } finally {
+    unlockBtn.disabled = false;
+    unlockBtn.querySelector('.btn-label').textContent = '開く';
+  }
 });
 
 // =========================================================
